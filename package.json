@@ -1,0 +1,26 @@
+{
+	"name": "icod-plc",
+	"version": "1.0.0",
+	"description": "ICOD PLC build",
+	"main": "index.js",
+	"scripts": {
+		"start": "go build -o ./prt ./src/... && ./prt",
+        "test": "go test",
+        "build": "docker build -t icod-prt:latest .",
+        "publish": "mysqlsync snash -p=publish && docker build -t icod-prt:latest . && docker tag icod-prt:latest 793199580563.dkr.ecr.us-east-1.amazonaws.com/icod-prt:latest && docker push 793199580563.dkr.ecr.us-east-1.amazonaws.com/icod-prt:latest",
+        "login": "aws ecr get-login-password --profile icod --region us-east-1 | docker login --username AWS --password-stdin 793199580563.dkr.ecr.us-east-1.amazonaws.com/icod-prt",
+        "clean": "docker rmi $(docker images -f \"dangling=true\" -q)",
+        "container": "docker container run --mount source=icod,target=/var/log/icod -it --name icod-prt-go icod-prt:latest"
+
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ICOD-Cloud/st-compiler.git"
+	},
+	"author": "Sergey Romanov <serg472@mail.ru>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ICOD-Cloud/st-compiler/issues"
+	},
+	"homepage": "https://github.com/ICOD-Cloud/st-compiler#readme"
+}

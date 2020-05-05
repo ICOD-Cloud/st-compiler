@@ -1,0 +1,22 @@
+{
+    "name": "Icod PLC",
+    // "context": "..",
+    "dockerFile": "Dockerfile",
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+        "ms-vscode.go",
+        "esbenp.prettier-vscode",
+        "fatih.baba-flow",
+        "mhutchie.git-graph"
+    ],
+    "workspaceFolder": "/go/src/st-compiler",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/go/src/st-compiler,type=bind,consistency=delegated",
+    "mounts": ["source=icod,target=/var/log/icod"],
+    "postCreateCommand": "apt-get -y update && apt-get -y upgrade && apt-get install -y git git-flow mc nodejs npm && echo 'export PATH=~/.local/bin:$PATH' >> ~/.profile && source ~/.profile && git config core.fileMode false && git config --global core.fileMode false && git config --global user.name serhioromano && git config --global user.email serg4172@mail.ru && echo 'machine github.com' >> ~/.netrc && echo 'login serhioromano' >> ~/.netrc && echo 'password KmciRgbH6g' >> ~/.netrc"
+    // "forwardPorts": [],
+    // "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+    // "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+    // "remoteUser": "vscode"
+}
